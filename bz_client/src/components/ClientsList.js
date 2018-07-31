@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const ClientsList = ({client, onRemoveClient=f=>f}) =>
+const ClientsList = ({client, onRemoveClient=f=>f, editingClient=f=>f}) =>
   
             <tr className="client" key={client.id}>
               <td>{ client.id }</td>
