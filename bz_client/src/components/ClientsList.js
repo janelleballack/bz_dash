@@ -2,7 +2,6 @@ import React from 'react';
 
 
 const ClientsList = ({client, onRemoveClient=f=>f, editingClient=f=>f}) =>
-  
             <tr className="client" key={client.id}>
               <td>{ client.id }</td>
               <td>{ client.first_name }</td>
@@ -16,5 +15,4 @@ const ClientsList = ({client, onRemoveClient=f=>f, editingClient=f=>f}) =>
               <td><button onClick={() => editingClient(client.id)}>Edit</button></td>
             </tr>
           
-
 export default ClientsList;
