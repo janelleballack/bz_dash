@@ -47,7 +47,7 @@ addNewClient(first_name, last_name, company, address, city, state, zipcode, emai
 }
 
 removeClient(id){
-  axios.delete('api/clients' + id)
+  axios.delete('api/clients'+ '/' + id)
   .then (response => {
     const clients = this.state.clients.filter(
       client => client.id !==id
@@ -97,9 +97,10 @@ editClient(id, first_name, last_name, company, address, city, state, zipcode, em
       <Row>
       <Col md={10}>
         <h4 className="card-title"> Clients List</h4>
+        
       </Col>
       <Col md={2}>
-       
+       <NewClientForm onNewClient={this.addNewClient} />
       </Col>
       </Row>  
       <Row>
@@ -132,10 +133,11 @@ editClient(id, first_name, last_name, company, address, city, state, zipcode, em
                     <ClientsList 
                     client={client} 
                     key={client.id} 
-                    onRemoveClient={this.removeClient}/>)
+                    onRemoveClient={this.removeClient}
+                    editingClient={this.editingClient}/>)
                   }
                   })}
-                   <NewClientForm onNewClient={this.addNewClient} />
+                   
                 </tbody>
               </Table>
             </CardBody>
