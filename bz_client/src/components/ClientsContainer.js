@@ -47,7 +47,7 @@ addNewClient(first_name, last_name, company, address, city, state, zipcode, emai
 }
 
 removeClient(id){
-  axios.delete('api/clients'+ '/' + id)
+  axios.delete('api/clients/' + id)
   .then (response => {
     const clients = this.state.clients.filter(
       client => client.id !==id
@@ -63,7 +63,7 @@ editingClient(id) {
   })
 }
 editClient(id, first_name, last_name, company, address, city, state, zipcode, email, phone, project_id){
-  axios.put( 'api/clients' + id, {
+  axios.put( 'api/clients/' + id, {
     client: {
       first_name, 
       last_name, 
@@ -100,7 +100,7 @@ editClient(id, first_name, last_name, company, address, city, state, zipcode, em
         
       </Col>
       <Col md={2}>
-       <NewClientForm onNewClient={this.addNewClient} />
+      <NewClientForm onNewClient={this.addNewClient} />
       </Col>
       </Row>  
       <Row>
@@ -121,23 +121,23 @@ editClient(id, first_name, last_name, company, address, city, state, zipcode, em
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.clients.map( client =>{
-                    if ( this.state.editingClientId === client.id ){
-                      return(
-                        <EditClientForm 
-                        client={client} 
-                        key={client.id} 
-                        editClient={this.editClient}/>)
-                    } else {
-                    return (
-                    <ClientsList 
-                    client={client} 
-                    key={client.id} 
-                    onRemoveClient={this.removeClient}
-                    editingClient={this.editingClient}/>)
-                  }
-                  })}
-                   
+                {this.state.clients.map( client => {
+                if ( this.state.editingClientId === client.id ) {
+                    return (<EditClientForm 
+                                client={client} 
+                                key={client.id} 
+                                editClient={this.editClient} 
+                    />)
+                } else {
+                    return (<ClientsList 
+                                client={client} 
+                                key={client.id} 
+                                onRemoveclient={this.removeclient}
+                                editingClient={this.editingClient} 
+                    />)
+                }
+            })}
+                  
                 </tbody>
               </Table>
             </CardBody>
