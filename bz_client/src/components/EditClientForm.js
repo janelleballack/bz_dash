@@ -27,7 +27,7 @@ class EditClientForm extends Component{
   handleSubmit(e) {
     e.preventDefault();
     const { id, first_name, last_name, company, address, city, state, zipcode, email, phone, project_id } = this.state;
-    this.props.EditClient(id, first_name, last_name, company, address, city, state, zipcode, email, phone, project_id);
+    this.props.editClient(id, first_name, last_name, company, address, city, state, zipcode, email, phone, project_id);
   }
 
   render(){
