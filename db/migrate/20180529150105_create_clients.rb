@@ -6,13 +6,12 @@ class CreateClients < ActiveRecord::Migration[5.2]
       t.string :address
       t.string :city
       t.string :state
-      t.integer :zipcode
+      t.string :zipcode
       t.string :email
       t.string :company
       t.string :phone
-      t.integer :project_id
-      
-      t.timestamps 
+      t.string :project_id
+      t.timestamps null: false
     end
   end
 end
