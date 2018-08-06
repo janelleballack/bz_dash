@@ -97,6 +97,7 @@ editClient(id, first_name, last_name, company, address, city, state, zipcode, em
       <Row>
       <Col md={10}>
         <h4 className="card-title"> Clients List</h4>
+        
       </Col>
       <Col md={2}>
       <NewClientForm onNewClient={this.addNewClient} />
