@@ -32,6 +32,8 @@ class EditClientForm extends Component{
 
   render(){
     return(
+      <tr>
+        <td>
       <form onSubmit={this.handleSubmit}>
       <input name="first_name"
              type="text"
@@ -105,6 +107,8 @@ class EditClientForm extends Component{
       
       <button>Update Client </button>
     </form>
+    </td>
+    </tr>
     )
   }
 }

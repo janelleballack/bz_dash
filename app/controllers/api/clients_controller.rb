@@ -13,6 +13,7 @@ class Api::ClientsController < ApplicationController
  # GET /clients/1
   def show
       render json: @client
+      @projects = @client.projects.find_by_name!(name)
   end
 
   # POST /clients
