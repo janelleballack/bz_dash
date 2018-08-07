@@ -10,15 +10,42 @@ class ClientsContainer extends Component{
     super(props)
     this.state = {
       clients: [],
-      editingClientId: null
+      editingClientId: null,
+      update: false
     }
     this.addNewClient = this.addNewClient.bind(this)
     this.removeClient = this.removeClient.bind(this)
     this.editingClient = this.editingClient.bind(this)
     this.editClient = this.editClient.bind(this)
+    this.update = this.update.bind(this)
   }
 
-//  client_params = {first_name, last_name, company, address, city, state, zipcode, email, phone, project_id};
+ 
+update()  {
+  axios.get('api/clients')
+  .then(response => {
+      console.log(response)
+    this.setState({
+        clients: response.data, 
+        NewClientForm:false, 
+        EditClientForm: false, 
+        ClientsList: false, 
+        isLoaded: true, 
+        update: false, 
+        first_name: '', 
+        last_name:'',
+        company:'',
+        address:'',
+        city: '', 
+        state:'',
+        zipcode:'',
+        email:'',
+        phone:'',
+        project_id:''
+      })
+  })
+  .catch(error => console.log(error))
+}
 
   componentDidMount(){
     axios.get('api/clients.json')
@@ -39,7 +66,10 @@ addNewClient(first_name, last_name, company, address, city, state, zipcode, emai
   .then(response => {
     console.log(response)
     const clients = [ ...this.state.clients, response.data ]
-    this.setState({clients})
+    this.setState({
+      clients,
+      update: true
+    })
   })
   .catch(error => {
     console.log(error)
@@ -52,7 +82,9 @@ removeClient(id){
     const clients = this.state.clients.filter(
       client => client.id !==id
     )
-    this.setState({clients})
+    this.setState({
+      clients,
+      update: true})
   })
   .catch(error => console.log(error))
 }
@@ -83,7 +115,8 @@ editClient(id, first_name, last_name, company, address, city, state, zipcode, em
     clients[id-1] = {id, first_name, last_name, company, address, city, state, zipcode, email, phone, project_id}
     this.setState(() => ({
       clients,
-      editingClientId: null
+      editingClientId: null,
+      update: true
     })
   )
   })
@@ -92,6 +125,9 @@ editClient(id, first_name, last_name, company, address, city, state, zipcode, em
 
 
   render (){
+    if (this.state.update) {
+      this.update()
+    }
     return (
       <div className = "clients-container">
       <Row>
@@ -121,17 +157,17 @@ editClient(id, first_name, last_name, company, address, city, state, zipcode, em
                   </tr>
                 </thead>
                 <tbody>
-                {this.state.clients.map( client => {
+                {this.state.clients.map( (client, i) => {
                 if ( this.state.editingClientId === client.id ) {
                     return (<EditClientForm 
                                 client={client} 
-                                key={client.id} 
+                                key={i} 
                                 editClient={this.editClient} 
                     />)
                 } else {
                     return (<ClientsList 
                                 client={client} 
-                                key={client.id} 
+                                key={i} 
                                 onRemoveclient={this.removeclient}
                                 editingClient={this.editingClient} 
                     />)
