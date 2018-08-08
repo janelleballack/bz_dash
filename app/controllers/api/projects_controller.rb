@@ -3,13 +3,19 @@ class Api::ProjectsController < ApplicationController
 
 	# GET /projects
 	def index
-			@projects = Project.all.order("created_at DESC")
-			render json: @projects
+			json = Project.all.order("created_at DESC").map do |project|
+				{
+					id:project.id,
+					name: project.name										
+				}
+			end
+			render json: json
 	end
 
  # GET /projects/1
 	def show
-		render json: @project
+		project = @project
+		render json: project_json(project)
 end
 
 	def new
@@ -19,13 +25,9 @@ end
 
 	# POST /projects
 	def create 
-		@project = Project.new(project_params)
-		
-		if @project.save
-			render json: @project, status: :created
-		else
-			render json: @project.errors, status: :unprocessable_entity
-		end
+		project = Project.new(project_params)
+		result = project.save
+		render json: project_json(project), status: result ? 200 : 422
 	end
 
 	def edit
@@ -34,11 +36,10 @@ end
 
 	 # PATCH/PUT /events/1
 	 def update
-		if @project.update(project_params)
-			render json: @project
-		else
-			render json: @project.errors, status: :unprocessable_entity
-		end
+		project = @project
+		project.attributes = project_params
+		result = project.save
+		render json: project_json(project), status: result ? 200 : 422
 end
 
 	# DELETE /clients/1
@@ -54,12 +55,22 @@ end
 	def complete
 		@project = Project.find(params[:id])
 		@project.update_attribute(:completed_at, Time.now)
-		notice: "project successfully completed!"
+		# notice: "project successfully completed!"
 	end
 
 	private
+	
+	def project_json(project)
+		{
+			id:project.id,
+			name: project.name,
+			errors: project.errors,
+			client: project.client.first_name
+		}
+	end
+
 		def project_params
-			params.require(:project).permit(:client_id, :name, :description, :hours, :deadline, :completed_at)
+			params.require(:project).permit(:client_id, :name, :description, :hours, :deadline, :completed_at, client_attributes: [:first_name])
 		end
 
 		def find_project

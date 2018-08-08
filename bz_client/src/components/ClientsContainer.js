@@ -158,6 +158,7 @@ editClient(id, first_name, last_name, company, address, city, state, zipcode, em
                 </thead>
                 <tbody>
                 {this.state.clients.map( (client, i) => {
+                  
                 if ( this.state.editingClientId === client.id ) {
                     return (<EditClientForm 
                                 client={client} 

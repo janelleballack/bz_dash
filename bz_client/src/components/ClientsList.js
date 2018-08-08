@@ -11,7 +11,11 @@ const ClientsList = ({client, onRemoveClient=f=>f, editingClient=f=>f}) =>
               <td>{ client.address }<br/>{ client.city }{ client.state } { client.zipcode }</td>
               <td>{ client.email }</td>
               <td>{ client.phone }</td>
-              <td>{ client.project_id }</td>
+              <td>{ client.projects.map((project) =>{
+                     return project.name
+                    }) 
+                  }
+              </td>
               <td><button onClick={() => onRemoveClient(client.id)}>Delete</button></td>
               <td><button onClick={() => editingClient(client.id)}>Edit</button></td>
             </tr>
