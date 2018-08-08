@@ -14,7 +14,9 @@ class EditClientForm extends Component{
       zipcode: this.props.client.zipcode,
       email: this.props.client.email,
       phone: this.props.client.phone,
-      project_id: this.props.client.project_id
+      projects: this.props.client.projects.map((project) =>{
+        return project.name
+       }) 
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -26,8 +28,8 @@ class EditClientForm extends Component{
 
   handleSubmit(e) {
     e.preventDefault();
-    const { id, first_name, last_name, company, address, city, state, zipcode, email, phone, project_id } = this.state;
-    this.props.editClient(id, first_name, last_name, company, address, city, state, zipcode, email, phone, project_id);
+    const { id, first_name, last_name, company, address, city, state, zipcode, email, phone, projects } = this.state;
+    this.props.editClient(id, first_name, last_name, company, address, city, state, zipcode, email, phone, projects);
   }
 
   render(){
@@ -35,77 +37,91 @@ class EditClientForm extends Component{
       <tr>
         <td>
       <form onSubmit={this.handleSubmit}>
-      <input name="first_name"
-             type="text"
-             placeholder="First Name" 
-             value={this.state.first_name}
-             onChange={this.handleChange} />
-      
+        <ul>
+          <li><input name="first_name"
+                type="text"
+                placeholder="First Name" 
+                value={this.state.first_name}
+                onChange={this.handleChange} />
+          </li>
+            
+          <li>
+            <input name="last_name"
+                  type="text"
+                  placeholder="Last Name"
+                  value={this.state.last_name}
+                  onChange={this.handleChange}  />
+          </li>
 
-      <input name="last_name"
-             type="text"
-             placeholder="Last Name"
-             value={this.state.last_name}
-             onChange={this.handleChange}  />
-      
+          <li>
+          <input name="company"
+                type="text"
+                placeholder="Company" 
+                value={this.state.company}
+                onChange={this.handleChange} />
+          </li>
 
-      <input name="company"
-             type="text"
-             placeholder="Company" 
-             value={this.state.company}
-             onChange={this.handleChange} />
-      
+          <li>
+            <input name="address"
+                  type="text"
+                  placeholder="Address" 
+                  value={this.state.address}
+                  onChange={this.handleChange} />
+          </li>
 
-      <input name="address"
-             type="text"
-             placeholder="Address" 
-             value={this.state.address}
-             onChange={this.handleChange} />
-      
+          <li>
+            <input name="city"
+                  type="text"
+                  placeholder="City" 
+                  value={this.state.city}
+                  onChange={this.handleChange} />
+          </li>
+          <li>
+            <input name="state"
+                  type="text"
+                  placeholder="State" 
+                  value={this.state.state}
+                  onChange={this.handleChange} />
+          </li>
+          
+          <li>
+            <input name="zipcode"
+                  type="text"
+                  placeholder="Zipcode" 
+                  value={this.state.zipcode}
+                  onChange={this.handleChange} />
+          </li>
 
-      <input name="city"
-             type="text"
-             placeholder="City" 
-             value={this.state.city}
-             onChange={this.handleChange} />
-      
+          <li>
+            <input name="email"
+                  type="text"
+                  placeholder="Email" 
+                  value={this.state.email}
+                  onChange={this.handleChange} />
+          </li>
 
-      <input name="state"
-             type="text"
-             placeholder="State" 
-             value={this.state.state}
-             onChange={this.handleChange} />
-      
+          <li>
+            <input name="phone"
+                  type="text"
+                  placeholder="Phone" 
+                  value={this.state.phone}
+                  onChange={this.handleChange} />
+          </li>
 
-      <input name="zipcode"
-             type="text"
-             placeholder="Zipcode" 
-             value={this.state.zipcode}
-             onChange={this.handleChange} />
-      
+          <li>
+            <textarea name="projects"
+                  type="text"
+                  placeholder="ProjecTs" 
+                  value={this.state.projects}
+                  onChange={this.handleChange} />
+          </li>
 
-      <input name="email"
-             type="text"
-             placeholder="Email" 
-             value={this.state.email}
-             onChange={this.handleChange} />
-             
+          <li>
+            <button>Update Client </button>
+          </li>
+          
+        </ul>
       
-
-      <input name="phone"
-             type="text"
-             placeholder="Phone" 
-             value={this.state.phone}
-             onChange={this.handleChange} />
-      
-
-      <input name="project_id"
-             type="text"
-             placeholder="Project ID" 
-             value={this.state.project_id}
-             onChange={this.handleChange} />
-      
-      <button>Update Client </button>
     </form>
     </td>
     </tr>

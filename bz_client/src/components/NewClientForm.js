@@ -2,10 +2,10 @@ import React from 'react';
 // import {Input} from 'reactstrap';
 
 const NewClientForm = ({ onNewClient = f => f}) => {
-  let first_name, last_name, company, address, city, state, zipcode, email, phone, project_id
+  let first_name, last_name, company, address, city, state, zipcode, email, phone
   const submit = e => {
     e.preventDefault()
-    onNewClient(first_name.value, last_name.value,  company.value, address.value, city.value, state.value, zipcode.value, email.value, phone.value, project_id.value) 
+    onNewClient(first_name.value, last_name.value,  company.value, address.value, city.value, state.value, zipcode.value, email.value, phone.value) 
 
     first_name.value = ''
     last_name.value = ''
@@ -16,7 +16,6 @@ const NewClientForm = ({ onNewClient = f => f}) => {
     zipcode.value = ''
     email.value = ''
     phone.value = ''
-    project_id.value = ''
     first_name.focus ()
   }
 
@@ -65,12 +64,7 @@ const NewClientForm = ({ onNewClient = f => f}) => {
       <input ref={input => phone = input}
              type="text"
              placeholder="Phone" required />
-      
-
-      <input ref={input => project_id = input}
-             type="text"
-             placeholder="Project ID" required />
-      
+             
       <button>Add Client </button>
     </form>
   )
